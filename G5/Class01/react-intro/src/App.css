@@ -1,0 +1,21 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.propsClassOne {
+  background-color: cadetblue;
+  padding: 10px;
+}
+
+.propsClassOne h3 {
+  color: green;
+}
+
+
+.propsClassTwo {
+  background-color: pink;
+  padding: 10px;
+}
