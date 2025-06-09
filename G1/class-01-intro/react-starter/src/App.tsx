@@ -1,4 +1,6 @@
 import "./App.css";
+import Button from "./Components/Button/Button";
+import PersonInfo from "./Components/PersonInfo/PersonInfo";
 import ProductList from "./Components/ProductList/ProductList";
 import Footer from "./Layout/Footer/Footer";
 import "./Layout/Header/Header";
@@ -64,6 +66,15 @@ function App() {
         </ul>
 
         <ProductList />
+
+        <PersonInfo firstName="John" lastName="Doe" />
+        <PersonInfo firstName="Jane" lastName="Doe" bgColor="lightpink" />
+        <PersonInfo firstName="Risto" lastName="Blazhovsi" />
+
+        <Button text="Click Me" />
+        <Button text="Success" style={{ backgroundColor: "lightgreen" }} />
+
+        <Button text="I am disabled" disabled={true} />
       </main>
       <Footer />
     </div>
