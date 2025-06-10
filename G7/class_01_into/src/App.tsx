@@ -3,6 +3,9 @@ import { Fragment } from 'react';
 import StudentDetails from './StudentDetails';
 import AcademyDetails from './AcademyDetails';
 import StyledComponent from './StyledComponent';
+import { ListComponent } from './ListComponent';
+import { ConditionsComponent } from './ConditionsComponent';
+import Counter from './Counter';
 
 function App() {
 	const name = 'John Doe';
@@ -13,6 +16,9 @@ function App() {
 			<StudentDetails name={name} />
 			<AcademyDetails />
 			<StyledComponent />
+			<ListComponent />
+			<ConditionsComponent />
+			<Counter />
 		</div>
 	);
 	// option 2: Adding an empty wrapper
