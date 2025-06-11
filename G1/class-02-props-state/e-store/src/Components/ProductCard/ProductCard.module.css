@@ -1,0 +1,28 @@
+.ProductCard {
+  border: 2px solid #e6af2e;
+  padding: 20px;
+  border-radius: 4px;
+  background: #ffecbe;
+  width: 250px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+}
+
+.ProductCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.199);
+}
+
+.heading {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.out-of-stock {
+  background-color: lightgray;
+  border: 2px solid gray;
+}
