@@ -1,0 +1,15 @@
+.css-styled-box {
+    background-color: bisque;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgb(72, 72, 72);
+    color: black;
+}
+
+.css-styled-box h3 {
+    color: brown;
+}
+
+.green-border {
+    border: 5px solid rgb(136, 164, 93);
+}

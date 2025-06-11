@@ -4,5 +4,5 @@ Frontend development using React
 
 ## Team
 
-- Trainer: [NAME](mailto:mail) | GH: [@username](https://github.com/<username>)
-- Assistant: [NAME](mailto:mail) | GH: [@username](https://github.com/<>)
+- Trainer: [Ivo Kostovski](mailto:ivo@kostovski.dev) | GH: [@ivoKostovski](https://github.com/ivoKostovski)
+- Assistant: [Hristina Bozhinova](mailto: hristina.bozhinova93@gmail.com) | GH: [@bozhinova-hristina](https://github.com/bozhinova-hristina)
