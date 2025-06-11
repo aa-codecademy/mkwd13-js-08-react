@@ -1,9 +1,15 @@
+import { useState } from "react";
 import Button from "../../Components/Button/Button";
+import Counter from "../../Components/Counter/Counter";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import type { Product } from "../../models/product.model";
 import "./ProductsPage.css";
 
 function ProductsPage() {
+  console.log("products page rerendered");
+
+  const [showCounter, setShowCounter] = useState(true);
+
   const productsMock: Product[] = [
     {
       title: "TV",
@@ -72,6 +78,14 @@ function ProductsPage() {
           }}
         />
       </div>
+      <h2>State/Counter</h2>
+      <Button
+        text="Toggle Counter"
+        onBtnClick={() => {
+          setShowCounter(prev => !prev);
+        }}
+      />
+      {showCounter && <Counter />}
     </section>
   );
 }
