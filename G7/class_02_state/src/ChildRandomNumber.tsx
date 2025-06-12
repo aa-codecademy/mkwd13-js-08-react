@@ -6,6 +6,8 @@ export default function ChildRandomNumber(props: {
 }) {
 	console.log('ChildRandomNumber in component main scope');
 
+	const randomStuff = props.randomNumber + props.randomWord;
+
 	// Every rerender
 	useEffect(() => {
 		console.log('ChildRandomNumber in component empty useEffect');
