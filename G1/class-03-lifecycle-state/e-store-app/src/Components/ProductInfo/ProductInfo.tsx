@@ -7,15 +7,26 @@ interface ProductInfoProps {
 }
 
 function ProductInfo({ selectedProduct }: ProductInfoProps) {
-  console.log("product info rerendered");
-  //Use effect with no dependency array will be called with every rerender or update of the component
-  useEffect(() => {
-    console.log("use effect called");
-  });
+  let intervalCount = 0;
 
   useEffect(() => {
-    console.log("EMPTY ARRAY USE EFFECT CALLED");
-  }, []);
+    const intervalId = setInterval(() => {
+      intervalCount++;
+      console.log(intervalCount);
+    }, 1000);
+
+    return () => {
+      console.log(
+        "This will be executed before the component is unmounted from the dom, same as componentWillUnmount"
+      );
+      //Clear interval clears an interval by using that intervals id
+      clearInterval(intervalId);
+    };
+  }, [intervalCount]);
+
+  useEffect(() => {
+    console.log("use effect called when selected product changes");
+  }, [selectedProduct]);
 
   const infoCardJSX = selectedProduct && (
     <div className="info-card">
