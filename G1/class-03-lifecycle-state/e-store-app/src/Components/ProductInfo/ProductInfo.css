@@ -1,0 +1,54 @@
+.ProductInfo {
+  width: 50%;
+  text-align: center;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.ProductInfo .info-card {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  background-color: white;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  min-height: 400px;
+}
+
+.ProductInfo .info-card h3 {
+  font-size: 24px;
+}
+
+.ProductInfo .info-body {
+  display: flex;
+  width: 80%;
+  gap: 30px;
+  font-size: 18px;
+  align-items: center;
+}
+
+.ProductInfo .info-body img {
+  border-radius: 4px;
+  padding: 20px;
+  width: 300px;
+}
+
+.ProductInfo .not-selected {
+  min-height: initial;
+}
+
+.ProductInfo .info-price {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 400;
+  background-color: var(--orange);
+  min-width: 100px;
+  padding: 10px;
+  min-height: 50px;
+  border-radius: 4px;
+}
