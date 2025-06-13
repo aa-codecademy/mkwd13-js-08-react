@@ -1,0 +1,13 @@
+.ProductsPage {
+  padding: 20px;
+}
+
+.ProductsPage .content {
+  display: flex;
+}
+
+.ProductsPage .buttons-container {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  gap: 10px;
+}

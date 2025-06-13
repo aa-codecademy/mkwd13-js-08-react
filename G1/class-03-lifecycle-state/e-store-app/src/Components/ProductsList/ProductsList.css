@@ -1,0 +1,19 @@
+.ProductsList {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  gap: 25px;
+  align-content: flex;
+  justify-content: start;
+  align-items: center;
+  min-width: 50%;
+  align-content: center;
+}
+
+.ProductsList h2 {
+  text-align: center;
+  box-shadow: 0 3px 6px #00000033, 0 3px 6px #0000003b;
+  background-color: white;
+  padding: 40px 20px;
+  margin: 0 auto;
+}
