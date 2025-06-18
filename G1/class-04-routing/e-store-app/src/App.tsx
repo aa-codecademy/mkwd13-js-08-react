@@ -27,6 +27,18 @@ function App() {
     });
   };
 
+  const removeFromCart = (selectedProduct: Product) => {
+    setProducts(prevProducts =>
+      prevProducts.map(product =>
+        product.id === selectedProduct.id
+          ? { ...product, inCart: false }
+          : product
+      )
+    );
+  };
+
+  const getProductsInCart = () => products.filter(product => product.inCart);
+
   return (
     <div className="App">
       <Header />
@@ -43,7 +55,15 @@ function App() {
               <ProductDetailsPage products={products} addToCart={addToCart} />
             }
           />
-          <Route path="/cart" element={<CartPage />} />
+          <Route
+            path="/cart"
+            element={
+              <CartPage
+                cartProducts={getProductsInCart()}
+                removeFromCart={removeFromCart}
+              />
+            }
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

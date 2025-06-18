@@ -7,9 +7,10 @@ function Navbar() {
       <ul>
         <li>
           <NavLink to="/products">Products</NavLink>
+        </li>
+        <li>
           <NavLink to="/cart">Cart</NavLink>
         </li>
-        <li></li>
       </ul>
     </nav>
   );
