@@ -16,15 +16,9 @@ The idea here is to start showing dynamic content based on our actions in the ap
 
 - The search bar should ONLY be visible on the Home page.
 
-### To implement the search logic you can:
-
-- use a debounce version – results are shown after the user stops typing for a short time (e.g., 500ms), or
-
-- use a Search button – results are displayed after clicking the button.
-
 ## FAQs
 
-None at the moment.
+Q: Should i use Debounce version or Search button? A: Go with whichever approach you feel more comfortable implementing — both are valid!
 
 ## Before you send it...
 
