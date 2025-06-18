@@ -1,7 +1,11 @@
 import "./Navbar.css";
 import { NavLink } from "react-router-dom";
 
-function Navbar() {
+interface NavbarProps {
+  cartCount: number;
+}
+
+function Navbar({ cartCount }: NavbarProps) {
   return (
     <nav className="Navbar">
       <ul>
@@ -9,7 +13,7 @@ function Navbar() {
           <NavLink to="/products">Products</NavLink>
         </li>
         <li>
-          <NavLink to="/cart">Cart</NavLink>
+          <NavLink to="/cart">Cart {cartCount > 0 && cartCount}</NavLink>
         </li>
       </ul>
     </nav>

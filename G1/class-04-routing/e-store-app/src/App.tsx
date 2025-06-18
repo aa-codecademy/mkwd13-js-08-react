@@ -1,7 +1,6 @@
-import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Footer from "./Layout/Footer/Footer";
-
 import Header from "./Layout/Header/Header";
 import CartPage from "./Pages/CartPage/CartPage";
 import ProductsPage from "./Pages/ProductsPage/ProductsPage";
@@ -41,7 +40,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header cartCount={getProductsInCart().length} />
       <main>
         <Routes>
           <Route path="/" element={<Navigate to="/products" />} />
