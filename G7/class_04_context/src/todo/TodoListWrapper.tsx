@@ -1,4 +1,5 @@
 import { TodoProvider } from './TodoContext';
+import TodoInput from './TodoInput';
 import TodoListContainer from './TodoListContainer';
 
 export default function TodoListWrapper() {
@@ -6,7 +7,7 @@ export default function TodoListWrapper() {
 		<div>
 			<h2>Todo App</h2>
 			<TodoProvider>
-				{/* Todo Input */}
+				<TodoInput />
 				<TodoListContainer />
 			</TodoProvider>
 		</div>

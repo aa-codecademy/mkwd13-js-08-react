@@ -5,11 +5,13 @@ type Todo = { id: number; text: string };
 type TodoContextType = {
 	todos: Todo[];
 	removeTodo: (id: number) => void;
+	addTodo: (text: string) => void;
 };
 
 const defaultContextValues: TodoContextType = {
 	todos: [],
 	removeTodo: () => void 0,
+	addTodo: () => void 0,
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -27,6 +29,21 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
 		},
 	]);
 
+	const addTodo = (text: string) => {
+		// const isTodoTextDuplicate = todos.find(todo => todo.text === text);
+		// const isTodoTextDuplicate = todos.every(todo => todo.text !== text);
+		const isTodoTextDuplicate = todos.some(todo => todo.text === text);
+
+		if (isTodoTextDuplicate) {
+			alert('Duplicate todo!');
+			return;
+		}
+
+		const id = todos.length + 1;
+		// Preferred way of adding a new item to an array in state
+		setTodos(tds => [...tds, { id, text }]);
+	};
+
 	const removeTodo = (id: number) => {
 		console.log('remove the todo with ID:', id);
 		// Preferred way to update array of items in state
@@ -42,6 +59,7 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
 			value={{
 				todos,
 				removeTodo,
+				addTodo,
 			}}>
 			{children}
 		</TodoContext.Provider>
