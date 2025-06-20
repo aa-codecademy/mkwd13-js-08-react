@@ -19,6 +19,27 @@ export default function CustomPizzaPage() {
 		]);
 	};
 
+	const handleRemoveIngredient = (type: PizzaIngredientType) => {
+		setSelectedIngredients(prevSelectedIngredients =>
+			prevSelectedIngredients.filter(ing => ing.type !== type)
+		);
+	};
+
+	const handleIngredientAmountChange = (
+		type: PizzaIngredientType,
+		amount: number
+	) => {
+		setSelectedIngredients(prevSelectedIngredients =>
+			prevSelectedIngredients.map(ingredient => {
+				if (ingredient.type === type) {
+					ingredient.amount = amount;
+					return ingredient;
+				}
+				return ingredient;
+			})
+		);
+	};
+
 	return (
 		<div className='min-h-screen bg-gradient-to-br from-orange-100 to-yellow-50 p-6'>
 			<button
@@ -31,12 +52,32 @@ export default function CustomPizzaPage() {
 			</h2>
 			<div className='flex gap-8'>
 				{/* Left: Ingredient selector */}
-				<div>
-					<IngredientSelector handleAddIngredient={handleAddIngredient} />
+				<div className='w-full md:w-3/5'>
+					<IngredientSelector
+						selectedIngredients={selectedIngredients}
+						handleAddIngredient={handleAddIngredient}
+					/>
 				</div>
 				{/* Right: Selected Ingredients */}
-				<div>
-					<SelectedIngredientsList selectedIngredients={selectedIngredients} />
+				<div className='w-full md:w-2/5'>
+					<h3 className='text-xl font-semibold mb-2 text-gray-500'>
+						Selected Ingredients:
+					</h3>
+					<SelectedIngredientsList
+						selectedIngredients={selectedIngredients}
+						handleRemoveIngredient={handleRemoveIngredient}
+						handleIngredientAmountChange={handleIngredientAmountChange}
+					/>
+					<button
+						disabled={!selectedIngredients.length}
+						className={`mt-6 w-full px-4 py-2 rounded font-semibold shadow transition text-white ${
+							selectedIngredients.length > 1
+								? 'bg-orange-600 hover:bg-orange-700 cursor-pointer'
+								: 'bg-gray-300 cursor-not-allowed'
+						}`}
+						type='button'>
+						Make Order
+					</button>
 				</div>
 			</div>
 		</div>
