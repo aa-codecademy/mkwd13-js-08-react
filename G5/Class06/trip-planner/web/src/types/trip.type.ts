@@ -6,7 +6,7 @@ export enum TripStatus {
 }
 
 export interface Trip {
-  id: number;
+  id: string;
   title: string;
   destination: string;
   status: TripStatus;
@@ -16,4 +16,11 @@ export interface Trip {
   // TODO: Convert to timestamp in the Backend also
   createdAt: string;
   updatedAt: string;
+}
+
+export interface TripCreationProps {
+  title: string;
+  destination: string;
+  budget: number;
+  image: string;
 }

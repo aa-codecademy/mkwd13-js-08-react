@@ -21,10 +21,15 @@
     color: #333;
 }
 
-.delete-btn{
+.btn-actions {
+    display: flex;
+    gap: 10px;
     position: absolute;
     bottom: 0.5rem;
     right: 0.5rem;
+}
+
+.delete-btn, .edit-btn {
     background-color: white;
     border: none;
     cursor: pointer;

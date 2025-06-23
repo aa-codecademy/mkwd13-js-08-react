@@ -1,18 +1,18 @@
 import { useState, useEffect, createContext } from "react";
-import type { Trip } from "../types/trip.type";
-import { mockedTrips } from "../data/trips.mock";
+import type { Trip, TripCreationProps } from "../types/trip.type";
+
 import { TripService } from "../services/trip.service";
 
 interface TripsContext {
   trips: Trip[];
-  handleDeleteTrip: (tripId: number) => string;
-  handleAddTrip: (trip: Trip) => void;
+  handleDeleteTrip: (tripId: string) => void;
+  handleAddTrip: (tripCreationProps: TripCreationProps) => Promise<void>;
 }
 
 const initialValues: TripsContext = {
   trips: [],
-  handleDeleteTrip: (_tripId: number) => "",
-  handleAddTrip: (_trip: Trip) => {},
+  handleDeleteTrip: (_tripId: string) => {},
+  handleAddTrip: async (_tripCreationProps: TripCreationProps) => {},
 };
 
 export const TripsContext = createContext(initialValues);
@@ -37,17 +37,35 @@ export const TripsContextProvider = (props: TripsContextProvider) => {
     })();
   }, []);
 
-  const handleDeleteTrip = (tripId: number): string => {
+  const handleDeleteTrip = async (tripId: string) => {
     const hasConfirmed = confirm("Are you sure you want to delete this trip?");
     if (!hasConfirmed) return "User did not confirm deleting";
 
+    await TripService.deleteTrip(tripId);
+
+    // #1 - Refetch to get the up-to-date data.
+    // const response = await fetchTrips();
+    // setTrips(response);
+
+    // #2 - Update the local state so we have the up-to-date data after success delete request
     const remainingTrips = trips.filter((trip) => trip.id !== tripId);
     setTrips(remainingTrips);
-    return "Delete success";
   };
 
-  const handleAddTrip = (trip: Trip): void => {
-    setTrips([...trips, trip]);
+  const handleAddTrip = async (
+    tripCreationProps: TripCreationProps
+  ): Promise<void> => {
+    const newTrip = await TripService.createTrip(tripCreationProps);
+
+    // #1. After success create, we re-fetch all of the trips so we can have up-to-date data.
+    // const trips = await fetchTrips();
+    // setTrips(trips);
+
+    // #2. The new entity returned from the BE, save it to the state
+    if (newTrip) {
+      setTrips([...trips, newTrip]);
+      console.log("Success create");
+    }
   };
 
   return (
