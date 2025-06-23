@@ -1,4 +1,4 @@
-import { createContext, useState, type ReactNode } from "react";
+import { createContext, useEffect, useState, type ReactNode } from "react";
 import type { Product } from "../models/product.model";
 import productsJSON from "../data/products.json";
 
@@ -19,7 +19,16 @@ export const ProductsContext = createContext<ProductsContextInterface>({
 });
 
 function ProductsProvider({ children }: { children: ReactNode }) {
-  const [products, setProducts] = useState<Product[]>(productsJSON);
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/products")
+      .then(res => res.json())
+      .then((products: Product[]) => {
+        console.log(products);
+        setProducts(products.map(product => ({ ...product, inCart: false })));
+      });
+  }, []);
 
   const addToCart = (selectedProduct: Product) => {
     setProducts(prevProducts => {
