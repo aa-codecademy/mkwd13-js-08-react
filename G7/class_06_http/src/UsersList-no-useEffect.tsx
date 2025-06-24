@@ -1,4 +1,4 @@
-import { use, useEffect, useState, type ChangeEvent } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 import axios from 'axios';
 
 const API_URL = 'https://jsonplaceholder.typicode.com/users';
@@ -12,7 +12,7 @@ interface User {
 	website: string;
 }
 
-export default function UsersList() {
+export default function UsersListWithoutUseEffect() {
 	const [users, setUsers] = useState<User[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
@@ -27,6 +27,7 @@ export default function UsersList() {
 			.then(res => {
 				console.log(res);
 				setUsers(res.data);
+				setFilteredUsers(res.data);
 			})
 			.catch(error => {
 				setError(error.message);
@@ -38,10 +39,10 @@ export default function UsersList() {
 
 	useEffect(() => {
 		console.log('triggered filtering users');
-		const updatedFilteredUsers = users.filter(user =>
-			user.name.toLowerCase().includes(searchTerm.toLowerCase())
-		);
-		setFilteredUsers(updatedFilteredUsers);
+		// const updatedFilteredUsers = users.filter(user =>
+		// 	user.name.toLowerCase().includes(searchTerm.toLowerCase())
+		// );
+		// setFilteredUsers(updatedFilteredUsers);
 	}, [users, searchTerm]);
 
 	// if (isLoading) {
@@ -54,14 +55,18 @@ export default function UsersList() {
 
 	return (
 		<div>
-			<h2>User List</h2>
+			<h2>User List Without UseEffect</h2>
 			<input
 				type='search'
 				placeholder='Search users...'
 				value={searchTerm}
-				onChange={(event: ChangeEvent<HTMLInputElement>) =>
-					setSearchTerm(event.target.value)
-				}
+				onChange={(event: ChangeEvent<HTMLInputElement>) => {
+					setSearchTerm(event.target.value);
+					const updatedFilteredUsers = users.filter(user =>
+						user.name.toLowerCase().includes(event.target.value.toLowerCase())
+					);
+					setFilteredUsers(updatedFilteredUsers);
+				}}
 			/>
 			{isLoading && <h3>Is Loading...</h3>}
 			{shouldShowError && <h3 style={{ color: 'red' }}>{error}</h3>}
