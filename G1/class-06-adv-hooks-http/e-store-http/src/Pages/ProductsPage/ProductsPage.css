@@ -1,4 +1,4 @@
-.ProductsPage .card-container {
+.ProductsPage {
   display: flex;
   flex-wrap: wrap;
   width: 100%;

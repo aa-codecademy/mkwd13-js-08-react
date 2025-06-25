@@ -7,4 +7,5 @@ export interface Product {
   image: string;
   rating: { rate: number; count: number };
   inCart: boolean;
+  quantity: number;
 }

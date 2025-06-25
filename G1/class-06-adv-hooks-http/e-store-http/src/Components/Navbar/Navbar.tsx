@@ -6,7 +6,10 @@ import { ProductsContext } from "../../Contexts/ProductsContext";
 function Navbar() {
   const { getProductsInCart } = useContext(ProductsContext);
 
-  const cartCount = getProductsInCart().length;
+  const cartCount = getProductsInCart().reduce(
+    (acc, product) => acc + product.quantity,
+    0
+  );
 
   return (
     <nav className="Navbar">
@@ -15,7 +18,10 @@ function Navbar() {
           <NavLink to="/products">Products</NavLink>
         </li>
         <li>
-          <NavLink to="/cart">Cart {cartCount > 0 && cartCount}</NavLink>
+          <NavLink to="/cart">
+            <i className="fa-solid fa-cart-shopping"></i>
+            {cartCount > 0 && cartCount}
+          </NavLink>
         </li>
       </ul>
     </nav>

@@ -4,6 +4,7 @@ import SearchInput from "../../Components/SearchInput/SearchInput";
 import "./ProductsPage.css";
 import { ProductsContext } from "../../Contexts/ProductsContext";
 import { useSearchParams } from "react-router-dom";
+import { Page } from "../../Layout/Page/Page";
 
 function ProductsPage() {
   const { products } = useContext(ProductsContext);
@@ -31,21 +32,16 @@ function ProductsPage() {
   );
 
   return (
-    <section className="page ProductsPage">
-      <div className="page-heading">
-        <h2>Products</h2>
+    <Page title="Products">
+      <div>
+        <SearchInput onSearch={onSearch} defaultValue={query} />
       </div>
-      <div className="page-content">
-        <div>
-          <SearchInput onSearch={onSearch} defaultValue={query} />
-        </div>
-        <div className="card-container">
-          {filteredProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+      <div className="ProductsPage">
+        {filteredProducts.map(product => (
+          <ProductCard key={product.id} product={product} />
+        ))}
       </div>
-    </section>
+    </Page>
   );
 }
 

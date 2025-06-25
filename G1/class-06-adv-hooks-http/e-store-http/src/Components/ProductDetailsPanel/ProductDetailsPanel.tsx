@@ -3,6 +3,7 @@ import type { Product } from "../../models/product.model";
 import Button from "../Button/Button";
 import "./ProductDetailsPanel.css";
 import { ProductsContext } from "../../Contexts/ProductsContext";
+import { QuantityPanel } from "../QuantityPanel/QuantityPanel";
 
 interface ProductDetailsPanel {
   product: Product;
@@ -22,18 +23,18 @@ function ProductDetailsPanel({ product }: ProductDetailsPanel) {
           <p>{product.description}</p>
           <div className="panel-controls">
             <p>${product.price}</p>
-            <Button
-              disabled={product.inCart}
-              onBtnClick={() => {
-                addToCart(product);
-              }}
-            >
-              {product.inCart ? (
-                "ADDED"
-              ) : (
+            {product.inCart ? (
+              <QuantityPanel product={product} />
+            ) : (
+              <Button
+                disabled={product.inCart}
+                onBtnClick={() => {
+                  addToCart(product);
+                }}
+              >
                 <i className="fa-solid fa-cart-arrow-down"></i>
-              )}
-            </Button>
+              </Button>
+            )}
           </div>
         </div>
       </div>

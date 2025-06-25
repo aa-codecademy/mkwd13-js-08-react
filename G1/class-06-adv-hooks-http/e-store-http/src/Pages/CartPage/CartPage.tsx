@@ -1,15 +1,11 @@
 import CartList from "../../Components/CartList/CartList";
+import { Page } from "../../Layout/Page/Page";
 
 function CartPage() {
   return (
-    <section className="page">
-      <div className="page-heading">
-        <h2>Cart</h2>
-      </div>
-      <div className="page-content">
-        <CartList />
-      </div>
-    </section>
+    <Page title="Cart">
+      <CartList />
+    </Page>
   );
 }
 

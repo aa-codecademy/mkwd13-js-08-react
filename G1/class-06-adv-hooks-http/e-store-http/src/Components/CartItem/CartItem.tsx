@@ -3,6 +3,7 @@ import type { Product } from "../../models/product.model";
 import Button from "../Button/Button";
 import "./CartItem.css";
 import { ProductsContext } from "../../Contexts/ProductsContext";
+import { QuantityPanel } from "../QuantityPanel/QuantityPanel";
 
 interface CartItemProps {
   product: Product;
@@ -15,7 +16,8 @@ function CartItem({ product }: CartItemProps) {
     <li className="CartItem">
       <strong>{product.title}</strong>
       <span>
-        ${product.price}
+        ${(product.price * product.quantity).toFixed(2)}
+        <QuantityPanel product={product} />
         <Button
           onBtnClick={() => {
             removeFromCart(product);
