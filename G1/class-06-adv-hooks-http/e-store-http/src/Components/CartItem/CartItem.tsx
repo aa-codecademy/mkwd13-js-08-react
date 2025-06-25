@@ -17,12 +17,13 @@ function CartItem({ product }: CartItemProps) {
       <span>
         ${product.price}
         <Button
-          text="❌"
           onBtnClick={() => {
             removeFromCart(product);
           }}
           style={{ marginLeft: "20px" }}
-        />
+        >
+          <i className="fa-solid fa-x"></i>
+        </Button>
       </span>
     </li>
   );

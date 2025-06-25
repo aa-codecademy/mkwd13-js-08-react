@@ -23,12 +23,17 @@ function ProductDetailsPanel({ product }: ProductDetailsPanel) {
           <div className="panel-controls">
             <p>${product.price}</p>
             <Button
-              text={product.inCart ? "ADDED" : "🛒"}
               disabled={product.inCart}
               onBtnClick={() => {
                 addToCart(product);
               }}
-            />
+            >
+              {product.inCart ? (
+                "ADDED"
+              ) : (
+                <i className="fa-solid fa-cart-arrow-down"></i>
+              )}
+            </Button>
           </div>
         </div>
       </div>

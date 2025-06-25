@@ -6,7 +6,9 @@ function Header() {
   return (
     <header className="Header">
       <h1>
-        <Link to="/">E Store App</Link>
+        <Link to="/">
+          <i className="fa-brands fa-opencart"></i> E Store App
+        </Link>
       </h1>
       <Navbar />
     </header>

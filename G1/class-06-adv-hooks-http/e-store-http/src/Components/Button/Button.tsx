@@ -1,13 +1,16 @@
+import type { ReactNode } from "react";
 import "./Button.css";
 
 interface ButtonProps {
-  text: string;
   style?: React.CSSProperties;
   disabled?: boolean;
   onBtnClick: () => void;
+  children: ReactNode;
 }
 
-function Button({ text, style, disabled, onBtnClick }: ButtonProps) {
+function Button({ style, disabled, children, onBtnClick }: ButtonProps) {
+  console.log(children);
+
   return (
     <button
       className="Button"
@@ -15,7 +18,7 @@ function Button({ text, style, disabled, onBtnClick }: ButtonProps) {
       style={style}
       onClick={onBtnClick}
     >
-      {text}
+      {children}
     </button>
   );
 }

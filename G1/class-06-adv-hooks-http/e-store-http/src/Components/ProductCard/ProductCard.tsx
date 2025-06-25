@@ -10,7 +10,6 @@ interface ProductCardProps {
 }
 
 function ProductCard({ product }: ProductCardProps) {
-  console.log("product card rerendered");
   const { addToCart } = useContext(ProductsContext);
 
   return (
@@ -22,12 +21,17 @@ function ProductCard({ product }: ProductCardProps) {
       <div className="card-details">
         <p>${product.price}</p>
         <Button
-          text={product.inCart ? "ADDED" : "🛒"}
           disabled={product.inCart}
           onBtnClick={() => {
             addToCart(product);
           }}
-        />
+        >
+          {product.inCart ? (
+            "ADDED"
+          ) : (
+            <i className="fa-solid fa-cart-arrow-down"></i>
+          )}
+        </Button>
       </div>
     </div>
   );
