@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react';
 
 type RegisterFormValues = {
 	name: string;
@@ -18,6 +18,8 @@ export default function SimpleLoginForm() {
 		email: '',
 		password: '',
 	});
+
+	console.log('SimpleLoginForm');
 
 	const [errors, setErrors] = useState<RegisterFormErrors>({});
 
