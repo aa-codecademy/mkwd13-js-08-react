@@ -1,11 +1,21 @@
 import { useContext } from "react";
 import "./CheckoutDetails.css";
 import { ProductsContext } from "../../Contexts/ProductsContext";
+import Button from "../Button/Button";
 
-export function CheckoutDetails() {
+interface CheckoutDetailsProps {
+  onOrderSubmit: () => void;
+}
+
+export function CheckoutDetails({ onOrderSubmit }: CheckoutDetailsProps) {
   const { getProductsInCart } = useContext(ProductsContext);
 
   const cartProducts = getProductsInCart();
+
+  const total = cartProducts.reduce(
+    (acc, product) => acc + product.price * product.quantity,
+    0
+  );
 
   return (
     <div className="CheckoutDetails">
@@ -22,6 +32,26 @@ export function CheckoutDetails() {
           </li>
         ))}
       </ul>
+      <div className="total">
+        <div className="total-list">
+          <div>
+            Total: <strong>${total.toFixed(2)}</strong>
+          </div>
+          <div>
+            Shipping: <strong>$39.99</strong>
+          </div>
+          <div>
+            Total with shipping: <strong>${(total + 39.99).toFixed(2)}</strong>
+          </div>
+          <Button
+            onBtnClick={() => {
+              onOrderSubmit();
+            }}
+          >
+            Submit Order
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

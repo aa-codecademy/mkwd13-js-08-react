@@ -15,6 +15,9 @@ function Navbar() {
     <nav className="Navbar">
       <ul>
         <li>
+          <NavLink to="/add-product">Add Product</NavLink>
+        </li>
+        <li>
           <NavLink to="/products">Products</NavLink>
         </li>
         <li>

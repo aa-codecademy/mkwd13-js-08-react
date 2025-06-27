@@ -11,6 +11,7 @@ interface ProductsContextInterface {
   addProductQuantity: (selectedProduct: Product) => void;
   removeProductQuantity: (selectedProduct: Product) => void;
   getProductsInCart: () => Product[];
+  resetCart: () => void;
 }
 
 export const ProductsContext = createContext<ProductsContextInterface>({
@@ -22,6 +23,7 @@ export const ProductsContext = createContext<ProductsContextInterface>({
   getProductsInCart() {
     return [];
   },
+  resetCart() {},
 });
 
 function ProductsProvider({ children }: { children: ReactNode }) {
@@ -50,20 +52,6 @@ function ProductsProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     fetchProducts();
-    // setIsLoading(true);
-    // fetch("http://localhost:3000/api/products")
-    //   .then(res => res.json())
-    //   .then((products: Product[]) => {
-    //     console.log(products);
-    //     setProducts(products.map(product => ({ ...product, inCart: false })));
-    //     setIsLoading(false);
-    //   })
-    //   .catch(() => {
-    //     setIsLoading(false);
-    //   })
-    //   .finally(() => {
-    //     setIsLoading(false);
-    //   });
   }, []);
 
   const addToCart = (selectedProduct: Product) => {
@@ -112,6 +100,12 @@ function ProductsProvider({ children }: { children: ReactNode }) {
 
   const getProductsInCart = () => products.filter(product => product.inCart);
 
+  const resetCart = () => {
+    setProducts(prevProducts =>
+      prevProducts.map(product => ({ ...product, inCart: false, quantity: 0 }))
+    );
+  };
+
   return (
     <>
       {isLoading && <Spinner />}
@@ -124,6 +118,7 @@ function ProductsProvider({ children }: { children: ReactNode }) {
           getProductsInCart,
           addProductQuantity,
           removeProductQuantity,
+          resetCart,
         }}
       >
         {children}

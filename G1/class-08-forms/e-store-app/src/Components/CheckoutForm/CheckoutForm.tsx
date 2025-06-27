@@ -1,36 +1,22 @@
-import { useForm } from "react-hook-form";
+import { type UseFormReturn } from "react-hook-form";
 import "./CheckoutForm.css";
+import type { CheckoutFormValues } from "../../Pages/CheckoutPage/CheckoutPage";
 
-interface CheckoutFormValues {
-  firstName: string;
-  lastName: string;
-  address: string;
-  phoneNumber: string;
+interface CheckoutFormProps {
+  form: UseFormReturn<CheckoutFormValues>;
 }
 
-export function CheckoutForm() {
+export function CheckoutForm({ form }: CheckoutFormProps) {
+  console.log("checkout form rerendered");
+
   const {
     register,
-    handleSubmit,
-    reset,
-    formState: { isValid, isSubmitted },
-  } = useForm<CheckoutFormValues>({
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      address: "",
-      phoneNumber: "",
-    },
-  });
-
-  const onSubmit = (formValue: CheckoutFormValues) => {
-    console.log("in ze on submit method");
-    console.log(formValue);
-  };
+    formState: { isValid, isDirty },
+  } = form;
 
   return (
     <div className="CheckoutForm">
-      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+      <form className="form">
         <div className="form-group">
           <label htmlFor="firstname">First Name</label>
           <input
@@ -63,15 +49,9 @@ export function CheckoutForm() {
             {...register("phoneNumber", { required: true })}
           />
         </div>
-        {!isValid && isSubmitted && (
+        {!isValid && isDirty && (
           <div className="form-error">All fields are required</div>
         )}
-        <div className="form-controls">
-          <button type="button" onClick={() => reset()}>
-            Reset
-          </button>
-          <button>Submit Order</button>
-        </div>
       </form>
     </div>
   );

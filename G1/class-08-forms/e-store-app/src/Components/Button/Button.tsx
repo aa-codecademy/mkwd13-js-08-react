@@ -9,8 +9,6 @@ interface ButtonProps {
 }
 
 function Button({ style, disabled, children, onBtnClick }: ButtonProps) {
-  console.log(children);
-
   return (
     <button
       className="Button"
