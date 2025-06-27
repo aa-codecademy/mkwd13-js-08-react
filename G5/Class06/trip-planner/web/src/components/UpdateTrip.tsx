@@ -1,13 +1,10 @@
-import { useState, useContext } from "react";
-import { type TripCreationProps } from "../types/trip.type";
-import { useNavigate } from "react-router-dom";
-import { TripsContext } from "../context/trips.context";
-import "./AddTrip.css";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import "./UpdateTrip.css";
 
-export const AddTrip = () => {
-  const navigate = useNavigate();
-  const context = useContext(TripsContext);
-  const { handleAddTrip } = context;
+export const UpdateTrip = () => {
+  const params = useParams();
+  const { id } = params;
 
   const [formData, setFormData] = useState({
     title: "",
@@ -23,32 +20,13 @@ export const AddTrip = () => {
     });
   };
 
-  const handleCreate = () => {
-    const formDataValues = Object.values(formData);
-    const condition = formDataValues.every((val) => val);
-    if (!condition) {
-      alert("Please fill all inputs");
-      return;
-    }
-
-    const newTrip: TripCreationProps = {
-      title: formData.title,
-      destination: formData.destination,
-      budget: +formData.budget,
-      image: formData.image,
-    };
-
-    console.log(newTrip);
-    handleAddTrip(newTrip);
-    navigate("/trips");
-  };
-
+  // TODO: Get trip by id with this ID
+  // TODO: Prepopulate the form with the values
   return (
     <form
       className="create-trip-form"
       onSubmit={(event) => {
         event.preventDefault();
-        handleCreate();
       }}
     >
       {/* Title */}
@@ -110,7 +88,7 @@ export const AddTrip = () => {
         />
       </div>
 
-      <button>Create</button>
+      <button>Update</button>
     </form>
   );
 };

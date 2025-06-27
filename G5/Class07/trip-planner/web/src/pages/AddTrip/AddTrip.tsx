@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
-import { type TripCreationProps } from "../types/trip.type";
+import { type TripCreationProps } from "../../types/trip.type";
 import { useNavigate } from "react-router-dom";
-import { TripsContext } from "../context/trips.context";
+import { TripsContext } from "../../context/trips.context";
 import "./AddTrip.css";
 
 export const AddTrip = () => {

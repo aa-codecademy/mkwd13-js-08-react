@@ -1,4 +1,4 @@
-import type { Trip } from "../types/trip.type";
+import type { Trip } from "../../types/trip.type";
 import "./TripCard.css";
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +11,13 @@ export const TripCard = (props: TripCardProps) => {
   const { trip, handleDeleteTrip } = props;
   const navigate = useNavigate();
 
+  const statusMapper = {
+    in_progress: "Trip in progress",
+    completed: "Trip is completed",
+    cancelled: "Trip is cancelled",
+    planned: "Trip is planned",
+  };
+
   return (
     <div className="trip-card">
       <img src={trip.image} alt={trip.title} className="trip-image" />
@@ -18,7 +25,7 @@ export const TripCard = (props: TripCardProps) => {
         <h3>{trip.title}</h3>
         <p className="destrination">📍 {trip.destination}</p>
         <p className="budget">💰 ${trip.budget}</p>
-        <span className="status-badge">{trip.status}</span>
+        <span className="status-badge">{statusMapper[trip.status]}</span>
         <div className="btn-actions">
           <button
             className="edit-btn"

@@ -1,4 +1,8 @@
-import type { Trip, TripCreationProps } from "../types/trip.type";
+import type {
+  Trip,
+  TripCreationProps,
+  UpdateTripProps,
+} from "../types/trip.type";
 
 export class TripService {
   static BASE_URL = "http://localhost:3001/api";
@@ -64,6 +68,36 @@ export class TripService {
     }
   }
 
+  static async getTripById(id: string) {
+    try {
+      const response = await fetch(`${this.BASE_URL}/trips/${id}`);
+
+      return await response.json();
+    } catch (error) {
+      console.error(`API request failed. Error: ${error}`);
+      throw error;
+    }
+  }
+
+  static async updateTrip(
+    id: string,
+    updateTripProps: UpdateTripProps
+  ): Promise<Trip | undefined> {
+    try {
+      const response = await fetch(`${this.BASE_URL}/trips/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(updateTripProps),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      return await response.json();
+    } catch (error) {
+      console.error(`API request failed. Error: ${error}`);
+      throw error;
+    }
+  }
   //   async regularMethod() {
   //     this.BASE_URL;
   //   }

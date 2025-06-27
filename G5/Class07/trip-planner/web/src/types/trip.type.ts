@@ -24,3 +24,7 @@ export interface TripCreationProps {
   budget: number;
   image: string;
 }
+
+export type UpdateTripProps = Partial<
+  TripCreationProps & { status: TripStatus }
+>;

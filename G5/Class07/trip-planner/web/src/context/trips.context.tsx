@@ -1,5 +1,9 @@
 import { useState, useEffect, createContext } from "react";
-import type { Trip, TripCreationProps } from "../types/trip.type";
+import type {
+  Trip,
+  TripCreationProps,
+  UpdateTripProps,
+} from "../types/trip.type";
 
 import { TripService } from "../services/trip.service";
 
@@ -7,12 +11,20 @@ interface TripsContext {
   trips: Trip[];
   handleDeleteTrip: (tripId: string) => void;
   handleAddTrip: (tripCreationProps: TripCreationProps) => Promise<void>;
+  handleUpdateTrip: (
+    tripId: string,
+    updateTripProps: UpdateTripProps
+  ) => Promise<void>;
 }
 
 const initialValues: TripsContext = {
   trips: [],
   handleDeleteTrip: (_tripId: string) => {},
   handleAddTrip: async (_tripCreationProps: TripCreationProps) => {},
+  handleUpdateTrip: async (
+    _tripId: string,
+    _updateTripProps: UpdateTripProps
+  ) => {},
 };
 
 export const TripsContext = createContext(initialValues);
@@ -68,12 +80,32 @@ export const TripsContextProvider = (props: TripsContextProvider) => {
     }
   };
 
+  const handleUpdateTrip = async (
+    tripId: string,
+    updateTripProps: UpdateTripProps
+  ) => {
+    const updatedTrip = await TripService.updateTrip(tripId, updateTripProps);
+
+    console.log("Updated trip", updatedTrip);
+    if (updatedTrip) {
+      const updatedTrips = trips.map((trip) => {
+        if (trip.id === tripId) {
+          return updatedTrip;
+        }
+        return trip;
+      });
+
+      setTrips(updatedTrips);
+    }
+  };
+
   return (
     <TripsContext.Provider
       value={{
         trips: trips,
         handleAddTrip: handleAddTrip,
         handleDeleteTrip: handleDeleteTrip,
+        handleUpdateTrip: handleUpdateTrip,
       }}
     >
       {props.children}
