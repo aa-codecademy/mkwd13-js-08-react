@@ -52,6 +52,15 @@
   color: darkred;
 }
 
+.form-group .invalid-control {
+  border: 3px solid darkred;
+}
+
+.control-error {
+  font-size: 18px;
+  color: darkred;
+}
+
 .form-controls button:hover {
   border: 1px solid var(--darkgray);
   background-color: var(--gray);

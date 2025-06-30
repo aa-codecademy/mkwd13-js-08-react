@@ -6,7 +6,9 @@ export class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('numeric')
+  @Column('numeric', {
+    nullable: true,
+  })
   amount: number;
 
   @Column()
