@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import type { Pizza } from '../types/pizza';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { OrderContext } from '../context/order-context.types';
 
 type PizzaCardProps = {
@@ -11,7 +11,7 @@ const btnClasses = `px-1.5 py-0.5 bg-orange-600 hover:bg-orange-700 text-white t
 
 export default function PizzaCard({ pizza }: PizzaCardProps) {
 	const navigate = useNavigate();
-	const { setSelectedPizza } = useContext(OrderContext);
+	const { setSelectedPizza, setSelectedIngredients } = useContext(OrderContext);
 
 	return (
 		<div
@@ -26,7 +26,9 @@ export default function PizzaCard({ pizza }: PizzaCardProps) {
 			<p className='text-gray-500 mb-2 line-clamp-2'>{pizza.description}</p>
 			<div className='flex flex-wrap gap-1 mb-2'>
 				{pizza.ingredients.map(ingredient => (
-					<span className='flex items-center gap-1 bg-orange-50 px-2 py-1 rounded text-xs'>
+					<span
+						className='flex items-center gap-1 bg-orange-50 px-2 py-1 rounded text-xs'
+						key={ingredient.type}>
 						<span className='capitalize text-gray-500'>
 							{ingredient.type.replace(/_/g, ' ')}
 						</span>
@@ -50,7 +52,18 @@ export default function PizzaCard({ pizza }: PizzaCardProps) {
 						}}>
 						Order Now
 					</button>
-					<button className={btnClasses} type='button'>
+					<button
+						onClick={() => {
+							setSelectedIngredients(
+								pizza.ingredients.map(i => ({
+									type: i.type,
+									amount: 1,
+								}))
+							);
+							navigate('/custom');
+						}}
+						className={btnClasses}
+						type='button'>
 						Customize
 					</button>
 				</div>

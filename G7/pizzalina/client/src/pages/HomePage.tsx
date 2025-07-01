@@ -46,7 +46,7 @@ export default function HomePage() {
 			{shouldShownPizzas && (
 				<article className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6'>
 					{pizzas.map(pizza => (
-						<PizzaCard pizza={pizza} />
+						<PizzaCard key={pizza.id} pizza={pizza} />
 					))}
 				</article>
 			)}

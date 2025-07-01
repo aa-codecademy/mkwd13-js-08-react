@@ -8,6 +8,7 @@ import {
   ParseIntPipe,
   Put,
   ParseEnumPipe,
+  BadRequestException,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -37,6 +38,7 @@ export class OrdersController {
     type: Order,
   })
   create(@Body() createOrderDto: CreateOrderDto): Promise<Order> {
+    // throw new BadRequestException('Something went wrong!');
     return this.ordersService.create(createOrderDto);
   }
 

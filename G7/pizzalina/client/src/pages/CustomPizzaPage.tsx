@@ -1,16 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import IngredientSelector from '../components/IngredientSelector';
-import { useState } from 'react';
-import type { PizzaIngredient } from '../types/pizza-ingredient';
+import { useContext } from 'react';
 import type { PizzaIngredientType } from '../types/pizza-ingredient-type.enum';
 import SelectedIngredientsList from '../components/SelectedIngredientsList';
+import { OrderContext } from '../context/order-context.types';
 
 export default function CustomPizzaPage() {
 	const navigate = useNavigate();
 
-	const [selectedIngredients, setSelectedIngredients] = useState<
-		PizzaIngredient[]
-	>([]);
+	const { selectedIngredients, setSelectedIngredients } =
+		useContext(OrderContext);
 
 	const handleAddIngredient = (type: PizzaIngredientType) => {
 		setSelectedIngredients(prevSelectedIngredients => [
@@ -70,6 +69,7 @@ export default function CustomPizzaPage() {
 					/>
 					<button
 						disabled={!selectedIngredients.length}
+						onClick={() => navigate('/order')}
 						className={`mt-6 w-full px-4 py-2 rounded font-semibold shadow transition text-white ${
 							selectedIngredients.length > 1
 								? 'bg-orange-600 hover:bg-orange-700 cursor-pointer'
