@@ -1,12 +1,18 @@
+import { useNavigate } from 'react-router-dom';
 import type { Pizza } from '../types/pizza';
+import { useContext } from 'react';
+import { OrderContext } from '../context/order-context.types';
 
 type PizzaCardProps = {
 	pizza: Pizza;
 };
 
-const btnClasses = `px-1.5 py-0.5 bg-orange-600 hover:bg-orange-700 text-white transition rounded shadow whitespace-nowrap`;
+const btnClasses = `px-1.5 py-0.5 bg-orange-600 hover:bg-orange-700 text-white transition rounded shadow whitespace-nowrap cursor-pointer`;
 
 export default function PizzaCard({ pizza }: PizzaCardProps) {
+	const navigate = useNavigate();
+	const { setSelectedPizza } = useContext(OrderContext);
+
 	return (
 		<div
 			key={pizza.name}
@@ -33,7 +39,15 @@ export default function PizzaCard({ pizza }: PizzaCardProps) {
 					${pizza.price.toFixed(2)}
 				</span>
 				<div className='flex gap-1 flex-wrap'>
-					<button className={btnClasses} type='button'>
+					<button
+						className={btnClasses}
+						type='button'
+						onClick={() => {
+							setSelectedPizza({
+								pizzaId: pizza.id,
+							});
+							navigate('/order');
+						}}>
 						Order Now
 					</button>
 					<button className={btnClasses} type='button'>
