@@ -2,15 +2,15 @@ import { Link } from "react-router-dom";
 import type { Product } from "../../models/product.model";
 import Button from "../Button/Button";
 import "./ProductCard.css";
-import { useContext } from "react";
-import { ProductsContext } from "../../Contexts/ProductsContext";
+import { useAppDispatch } from "../../utils/hooks";
+import { addToCart } from "../../state/slices/products.slice";
 
 interface ProductCardProps {
   product: Product;
 }
 
 function ProductCard({ product }: ProductCardProps) {
-  const { addToCart } = useContext(ProductsContext);
+  const dispatch = useAppDispatch();
 
   return (
     <div className="ProductCard">
@@ -23,7 +23,7 @@ function ProductCard({ product }: ProductCardProps) {
         <Button
           disabled={product.inCart}
           onBtnClick={() => {
-            addToCart(product);
+            dispatch(addToCart(product));
           }}
         >
           {product.inCart ? (

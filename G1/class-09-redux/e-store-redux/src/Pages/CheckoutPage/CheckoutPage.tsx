@@ -3,11 +3,12 @@ import { CheckoutDetails } from "../../Components/CheckoutDetails/CheckoutDetail
 import { CheckoutForm } from "../../Components/CheckoutForm/CheckoutForm";
 import { Page } from "../../Layout/Page/Page";
 import type { AddOrderReq } from "../../models/order.model";
-import { useContext } from "react";
-import { ProductsContext } from "../../Contexts/ProductsContext";
 import { httpService } from "../../services/http.service";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { selectProductsInCart } from "../../state/selectors";
+import { resetCart } from "../../state/slices/products.slice";
 
 export interface CheckoutFormValues {
   firstName: string;
@@ -28,9 +29,9 @@ export function CheckoutPage() {
     },
   });
 
-  const { getProductsInCart, resetCart } = useContext(ProductsContext);
+  const dispatch = useAppDispatch();
 
-  const cartProducts = getProductsInCart();
+  const cartProducts = useAppSelector(selectProductsInCart);
 
   const onOrderSubmit = () => {
     if (!checkoutForm.formState.isValid) return;
@@ -55,7 +56,7 @@ export function CheckoutPage() {
   const postNewOrder = async (reqBody: AddOrderReq) => {
     try {
       await httpService.post("/orders", reqBody);
-      resetCart();
+      dispatch(resetCart());
       toast.success("Order successfully created!");
       navigate("/products");
     } catch (error) {

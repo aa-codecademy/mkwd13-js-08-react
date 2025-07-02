@@ -1,11 +1,10 @@
 import { Navigate, useParams } from "react-router-dom";
 import ProductDetailsPanel from "../../Components/ProductDetailsPanel/ProductDetailsPanel";
-import { useContext } from "react";
-import { ProductsContext } from "../../Contexts/ProductsContext";
 import { Page } from "../../Layout/Page/Page";
+import { useAppSelector } from "../../utils/hooks";
 
 function ProductDetailsPage() {
-  const { products } = useContext(ProductsContext);
+  const products = useAppSelector(state => state.products.value);
 
   const { id } = useParams();
 

@@ -1,21 +1,16 @@
-import { useContext } from "react";
 import "./CheckoutDetails.css";
-import { ProductsContext } from "../../Contexts/ProductsContext";
 import Button from "../Button/Button";
+import { useAppSelector } from "../../utils/hooks";
+import { selectProductsInCart, selectTotalAmount } from "../../state/selectors";
 
 interface CheckoutDetailsProps {
   onOrderSubmit: () => void;
 }
 
 export function CheckoutDetails({ onOrderSubmit }: CheckoutDetailsProps) {
-  const { getProductsInCart } = useContext(ProductsContext);
+  const cartProducts = useAppSelector(selectProductsInCart);
 
-  const cartProducts = getProductsInCart();
-
-  const total = cartProducts.reduce(
-    (acc, product) => acc + product.price * product.quantity,
-    0
-  );
+  const total = useAppSelector(selectTotalAmount);
 
   return (
     <div className="CheckoutDetails">
@@ -27,7 +22,7 @@ export function CheckoutDetails({ onOrderSubmit }: CheckoutDetailsProps) {
               ${product.price} X {product.quantity}
             </span>
             <span className="item-total">
-              ${(product.price * product.quantity).toFixed(2)}
+              ${(Number(product.price) * product.quantity).toFixed(2)}
             </span>
           </li>
         ))}

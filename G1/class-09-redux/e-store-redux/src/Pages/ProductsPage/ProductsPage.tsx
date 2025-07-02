@@ -9,7 +9,6 @@ import { useAppSelector } from "../../utils/hooks";
 function ProductsPage() {
   const products = useAppSelector(state => state.products.value);
 
-  // const { products } = useContext(ProductsContext);
   const [filteredProducts, setFilteredProducts] = useState(products);
 
   const [searchParams, setSearchParams] = useSearchParams();

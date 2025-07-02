@@ -1,12 +1,12 @@
-import { useContext } from "react";
 import "./Navbar.css";
 import { NavLink } from "react-router-dom";
-import { ProductsContext } from "../../Contexts/ProductsContext";
+import { useAppSelector } from "../../utils/hooks";
+import { selectProductsInCart } from "../../state/selectors";
 
 function Navbar() {
-  const { getProductsInCart } = useContext(ProductsContext);
+  const cartProducts = useAppSelector(selectProductsInCart);
 
-  const cartCount = getProductsInCart().reduce(
+  const cartCount = cartProducts.reduce(
     (acc, product) => acc + product.quantity,
     0
   );

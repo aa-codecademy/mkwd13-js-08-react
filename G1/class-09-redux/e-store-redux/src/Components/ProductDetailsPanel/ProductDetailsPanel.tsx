@@ -1,16 +1,16 @@
-import { useContext } from "react";
 import type { Product } from "../../models/product.model";
 import Button from "../Button/Button";
 import "./ProductDetailsPanel.css";
-import { ProductsContext } from "../../Contexts/ProductsContext";
 import { QuantityPanel } from "../QuantityPanel/QuantityPanel";
+import { useAppDispatch } from "../../utils/hooks";
+import { addToCart } from "../../state/slices/products.slice";
 
 interface ProductDetailsPanel {
   product: Product;
 }
 
 function ProductDetailsPanel({ product }: ProductDetailsPanel) {
-  const { addToCart } = useContext(ProductsContext);
+  const dispatch = useAppDispatch();
 
   return (
     <div className="ProductDetailsPanel">
@@ -29,7 +29,7 @@ function ProductDetailsPanel({ product }: ProductDetailsPanel) {
               <Button
                 disabled={product.inCart}
                 onBtnClick={() => {
-                  addToCart(product);
+                  dispatch(addToCart(product));
                 }}
               >
                 <i className="fa-solid fa-cart-arrow-down"></i>

@@ -1,21 +1,16 @@
-import { useContext } from "react";
 import CartItem from "../CartItem/CartItem";
 import "./CartList.css";
-import { ProductsContext } from "../../Contexts/ProductsContext";
 import { useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
+import { useAppSelector } from "../../utils/hooks";
+import { selectProductsInCart, selectTotalAmount } from "../../state/selectors";
 
 function CartList() {
   const navigate = useNavigate();
 
-  const { getProductsInCart } = useContext(ProductsContext);
+  const cartProducts = useAppSelector(selectProductsInCart);
 
-  const cartProducts = getProductsInCart();
-
-  const total = getProductsInCart().reduce(
-    (acc, product) => acc + product.quantity * product.price,
-    0
-  );
+  const total = useAppSelector(selectTotalAmount);
 
   return (
     <>

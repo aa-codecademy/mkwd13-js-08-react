@@ -1,16 +1,16 @@
-import { useContext } from "react";
 import type { Product } from "../../models/product.model";
 import Button from "../Button/Button";
 import "./CartItem.css";
-import { ProductsContext } from "../../Contexts/ProductsContext";
 import { QuantityPanel } from "../QuantityPanel/QuantityPanel";
+import { useAppDispatch } from "../../utils/hooks";
+import { removeFromCart } from "../../state/slices/products.slice";
 
 interface CartItemProps {
   product: Product;
 }
 
 function CartItem({ product }: CartItemProps) {
-  const { removeFromCart } = useContext(ProductsContext);
+  const dispatch = useAppDispatch();
 
   return (
     <li className="CartItem">
@@ -20,7 +20,7 @@ function CartItem({ product }: CartItemProps) {
         <QuantityPanel product={product} />
         <Button
           onBtnClick={() => {
-            removeFromCart(product);
+            dispatch(removeFromCart(product));
           }}
           style={{ marginLeft: "20px" }}
         >
