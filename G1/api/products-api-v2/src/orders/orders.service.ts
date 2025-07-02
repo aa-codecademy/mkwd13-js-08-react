@@ -22,6 +22,7 @@ export class OrdersService {
           product: {
             id: true,
             title: true,
+            price: true,
           },
         },
       },
