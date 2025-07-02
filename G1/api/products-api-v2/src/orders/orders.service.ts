@@ -15,7 +15,22 @@ export class OrdersService {
   ) {}
 
   getAllOrders() {
-    return this.ordersRepo.find({ loadRelationIds: true });
+    return this.ordersRepo.find({
+      select: {
+        orderDetailsArr: {
+          quantity: true,
+          product: {
+            id: true,
+            title: true,
+          },
+        },
+      },
+      relations: {
+        orderDetailsArr: {
+          product: true,
+        },
+      },
+    });
   }
 
   async getOrderById(id: number) {
