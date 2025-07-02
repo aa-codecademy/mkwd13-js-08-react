@@ -4,6 +4,7 @@ import "./ProductDetailsPanel.css";
 import { QuantityPanel } from "../QuantityPanel/QuantityPanel";
 import { useAppDispatch } from "../../utils/hooks";
 import { addToCart } from "../../state/slices/products.slice";
+import { toast } from "react-toastify";
 
 interface ProductDetailsPanel {
   product: Product;
@@ -29,6 +30,7 @@ function ProductDetailsPanel({ product }: ProductDetailsPanel) {
               <Button
                 disabled={product.inCart}
                 onBtnClick={() => {
+                  toast.success("Product added to cart");
                   dispatch(addToCart(product));
                 }}
               >

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Page } from "../../Layout/Page/Page";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./AddProductsPage.css";
 import { addFormValdations } from "./add-form.const";
 import { toast } from "react-toastify";
@@ -8,7 +8,8 @@ import type { AddProductReq } from "../../models/product.model";
 import { httpService } from "../../services/http.service";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "../../Components/Spinner/Spinner";
-import { ProductsContext } from "../../Contexts/ProductsContext";
+import { useAppDispatch } from "../../utils/hooks";
+import { fetchProducts } from "../../state/slices/products.slice";
 
 export interface AddProductFormValues {
   title: string;
@@ -23,7 +24,8 @@ const PLACEHOLDER_IMG =
   "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=";
 
 export function AddProductPage() {
-  const { fetchProducts } = useContext(ProductsContext);
+  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -70,7 +72,8 @@ export function AddProductPage() {
       console.log(response);
 
       toast.success("Product added successfully");
-      fetchProducts();
+      dispatch(fetchProducts());
+
       navigate("/products");
     } catch (error) {
       console.log(error);

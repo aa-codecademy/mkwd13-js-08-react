@@ -4,6 +4,7 @@ import Button from "../Button/Button";
 import "./ProductCard.css";
 import { useAppDispatch } from "../../utils/hooks";
 import { addToCart } from "../../state/slices/products.slice";
+import { toast } from "react-toastify";
 
 interface ProductCardProps {
   product: Product;
@@ -23,6 +24,7 @@ function ProductCard({ product }: ProductCardProps) {
         <Button
           disabled={product.inCart}
           onBtnClick={() => {
+            toast.success("Product added to cart");
             dispatch(addToCart(product));
           }}
         >

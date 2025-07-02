@@ -22,7 +22,7 @@ export function CheckoutDetails({ onOrderSubmit }: CheckoutDetailsProps) {
               ${product.price} X {product.quantity}
             </span>
             <span className="item-total">
-              ${(Number(product.price) * product.quantity).toFixed(2)}
+              ${(product.price * product.quantity).toFixed(2)}
             </span>
           </li>
         ))}

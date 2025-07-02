@@ -4,6 +4,7 @@ import "./CartItem.css";
 import { QuantityPanel } from "../QuantityPanel/QuantityPanel";
 import { useAppDispatch } from "../../utils/hooks";
 import { removeFromCart } from "../../state/slices/products.slice";
+import { toast } from "react-toastify";
 
 interface CartItemProps {
   product: Product;
@@ -20,6 +21,7 @@ function CartItem({ product }: CartItemProps) {
         <QuantityPanel product={product} />
         <Button
           onBtnClick={() => {
+            toast.info("Product removed from cart");
             dispatch(removeFromCart(product));
           }}
           style={{ marginLeft: "20px" }}

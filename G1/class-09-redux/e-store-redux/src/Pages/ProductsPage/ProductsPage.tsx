@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import SearchInput from "../../Components/SearchInput/SearchInput";
 import "./ProductsPage.css";
@@ -15,9 +15,6 @@ function ProductsPage() {
 
   const query = searchParams.get("q");
 
-  // const sortBy = searchParams.get("sortBy");
-  // if (sortBy === "price") filteredProducts.sort((a, b) => a.price - b.price);
-
   const onSearch = useCallback(
     (value: string) => {
       setSearchParams(prevParams => {
@@ -31,6 +28,14 @@ function ProductsPage() {
     },
     [products, setSearchParams]
   );
+
+  useEffect(() => {
+    setFilteredProducts(products);
+  }, [products, onSearch]);
+
+  useEffect(() => {
+    if (query) onSearch(query);
+  }, [query, onSearch]);
 
   return (
     <Page title="Products">
