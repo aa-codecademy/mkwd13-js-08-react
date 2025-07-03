@@ -12,6 +12,7 @@ export default function OrderPizzaPage() {
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState(false);
 	const { selectedPizza, selectedIngredients } = useContext(OrderContext);
+	const [pizzaName, setPizzaName] = useState('');
 	const navigate = useNavigate();
 
 	const {
@@ -25,6 +26,12 @@ export default function OrderPizzaPage() {
 			phone: '',
 		},
 	});
+
+	if (selectedPizza?.pizzaId) {
+		axios
+			.get(`${API_BASE_URL}/pizzas/${selectedPizza?.pizzaId}`)
+			.then(res => setPizzaName(res.data.name));
+	}
 
 	const onSubmit = async (data: DeliveryInfoValues) => {
 		setError('');
@@ -71,6 +78,10 @@ export default function OrderPizzaPage() {
 		}
 	};
 
+	if (!selectedIngredients.length && !selectedPizza?.pizzaId) {
+		return navigate('/');
+	}
+
 	return (
 		<div className='min-h-screen bg-gradient-to-br from-orange-100 to-yellow-50 p-6'>
 			<button
@@ -82,7 +93,16 @@ export default function OrderPizzaPage() {
 			<h2 className='text-3xl font-bold text-orange-600 mb-6'>
 				Delivery Information
 			</h2>
-			<pre>{JSON.stringify(selectedIngredients)}</pre>
+			<div className='mb-4'>
+				<h3>
+					<span className='font-bold'>You have selected: </span>
+					{!!selectedPizza?.pizzaId && ` Pizza ${pizzaName}`}
+					{!!selectedIngredients.length &&
+						` Custom pizza with the following ingredients: ${selectedIngredients
+							.map(ing => ing.type)
+							.join(', ')}.`}
+				</h3>
+			</div>
 			<form
 				onSubmit={handleSubmit(onSubmit)}
 				className='max-w-md mx-auto bg-white p-6 rounded shadow'>

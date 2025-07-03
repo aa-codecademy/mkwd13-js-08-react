@@ -1,29 +1,23 @@
 import { useNavigate } from 'react-router-dom';
 import PizzaCard from '../components/PizzaCard';
-import { useEffect, useState } from 'react';
-import type { Pizza } from '../types/pizza';
-import axios from 'axios';
-import { API_BASE_URL } from '../const/api';
-import type { PaginatedPizzas } from '../types/paginated-pizzas';
+import { usePizzas } from '../hooks/use-pizzas';
 
 const btnClasses =
 	'px-6 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg text-white font-semibold shadow transition cursor-pointer';
 
+const paginationBtnClasses = `px-3 py-1 rounded bg-orange-100 hover:bg-orange-200 text-orange-700 font-semibold cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed`;
+
 export default function HomePage() {
-	const [pizzas, setPizzas] = useState<Pizza[]>([]);
-	const [isLoading, setIsLoading] = useState(false);
+	const {
+		pizzas,
+		isLoading,
+		page,
+		setPage,
+		totalPages,
+		shouldShownPizzas,
+		shouldShowNoPizzas,
+	} = usePizzas();
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		setIsLoading(true);
-		axios
-			.get<PaginatedPizzas>(`${API_BASE_URL}/pizzas`)
-			.then(res => setPizzas(res.data.data))
-			.finally(() => setIsLoading(false));
-	}, []);
-
-	const shouldShownPizzas = !isLoading && !!pizzas.length;
-	const shouldShowNoPizzas = !isLoading && !pizzas.length;
 
 	return (
 		<div className='min-h-screen bg-gradient-to-br from-yellow-100 to-orange-50 p-6'>
@@ -33,7 +27,9 @@ export default function HomePage() {
 					<button className={btnClasses} onClick={() => navigate('/custom')}>
 						Create Custom Pizza
 					</button>
-					<button className={btnClasses}>View Orders</button>
+					<button onClick={() => navigate('/orders')} className={btnClasses}>
+						View Orders
+					</button>
 				</nav>
 			</header>
 
@@ -50,6 +46,24 @@ export default function HomePage() {
 					))}
 				</article>
 			)}
+			{/* Pagination */}
+			<div className='flex justify-center items-center gap-4 mt-8'>
+				<button
+					className={paginationBtnClasses}
+					disabled={page === 1}
+					onClick={() => setPage(prevPage => prevPage - 1)}>
+					Prev
+				</button>
+				<span className='text-orange-600 font-semibold'>
+					Page {page} from {totalPages}
+				</span>
+				<button
+					className={paginationBtnClasses}
+					disabled={page === totalPages}
+					onClick={() => setPage(prevPage => prevPage + 1)}>
+					Next
+				</button>
+			</div>
 		</div>
 	);
 }

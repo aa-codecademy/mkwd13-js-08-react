@@ -48,6 +48,7 @@ export default function PizzaCard({ pizza }: PizzaCardProps) {
 							setSelectedPizza({
 								pizzaId: pizza.id,
 							});
+							setSelectedIngredients([]);
 							navigate('/order');
 						}}>
 						Order Now
@@ -60,6 +61,7 @@ export default function PizzaCard({ pizza }: PizzaCardProps) {
 									amount: 1,
 								}))
 							);
+							setSelectedPizza(null);
 							navigate('/custom');
 						}}
 						className={btnClasses}

@@ -1,12 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import IngredientSelector from '../components/IngredientSelector';
-import { useContext } from 'react';
-import type { PizzaIngredientType } from '../types/pizza-ingredient-type.enum';
+import { useContext, useState } from 'react';
+import { PizzaIngredientType } from '../types/pizza-ingredient-type.enum';
 import SelectedIngredientsList from '../components/SelectedIngredientsList';
 import { OrderContext } from '../context/order-context.types';
+import IngredientSearchBar from '../components/IngredientSearchBar';
+
+const ALL_INGREDIENTS = Object.values(PizzaIngredientType);
 
 export default function CustomPizzaPage() {
 	const navigate = useNavigate();
+	const [searchTerm, setSearchTerm] = useState('');
 
 	const { selectedIngredients, setSelectedIngredients } =
 		useContext(OrderContext);
@@ -39,6 +43,10 @@ export default function CustomPizzaPage() {
 		);
 	};
 
+	const filteredIngredients = ALL_INGREDIENTS.filter(type =>
+		type.replace(/_/g, ' ').toLowerCase().includes(searchTerm.toLowerCase())
+	);
+
 	return (
 		<div className='min-h-screen bg-gradient-to-br from-orange-100 to-yellow-50 p-6'>
 			<button
@@ -52,9 +60,14 @@ export default function CustomPizzaPage() {
 			<div className='flex gap-8'>
 				{/* Left: Ingredient selector */}
 				<div className='w-full md:w-3/5'>
+					<IngredientSearchBar
+						searchTerm={searchTerm}
+						setSearchTerm={setSearchTerm}
+					/>
 					<IngredientSelector
 						selectedIngredients={selectedIngredients}
 						handleAddIngredient={handleAddIngredient}
+						ingredients={filteredIngredients}
 					/>
 				</div>
 				{/* Right: Selected Ingredients */}
@@ -62,13 +75,14 @@ export default function CustomPizzaPage() {
 					<h3 className='text-xl font-semibold mb-2 text-gray-500'>
 						Selected Ingredients:
 					</h3>
+
 					<SelectedIngredientsList
 						selectedIngredients={selectedIngredients}
 						handleRemoveIngredient={handleRemoveIngredient}
 						handleIngredientAmountChange={handleIngredientAmountChange}
 					/>
 					<button
-						disabled={!selectedIngredients.length}
+						disabled={selectedIngredients.length < 2}
 						onClick={() => navigate('/order')}
 						className={`mt-6 w-full px-4 py-2 rounded font-semibold shadow transition text-white ${
 							selectedIngredients.length > 1
