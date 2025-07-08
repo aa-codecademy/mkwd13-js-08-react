@@ -17,7 +17,6 @@ import {
   ApiOkResponse,
   ApiNotFoundResponse,
   ApiCreatedResponse,
-  ApiQuery,
 } from '@nestjs/swagger';
 import { PizzasService } from './pizzas.service';
 import { CreatePizzaDto } from './dto/create-pizza.dto';
@@ -54,7 +53,6 @@ export class PizzasController {
     description: 'Paginated list of pizzas',
     type: PizzaPaginatedResponseDto,
   })
-  @ApiQuery({ type: PizzaQueryDto })
   search(@Query() query: PizzaQueryDto): Promise<PaginatedResponse<Pizza>> {
     return this.pizzasService.search(query);
   }

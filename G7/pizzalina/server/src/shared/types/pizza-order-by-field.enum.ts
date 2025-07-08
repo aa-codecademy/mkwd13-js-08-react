@@ -4,5 +4,5 @@ export enum PizzaOrderByField {
   PRICE = 'price',
   SIZE = 'size',
   CALORIES = 'calories',
-  CREATED_AT = 'created_at',
+  CREATED_AT = 'createdAt',
 }
