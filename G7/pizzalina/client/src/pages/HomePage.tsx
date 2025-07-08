@@ -2,6 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import PizzaCard from '../components/PizzaCard';
 import { usePizzas } from '../hooks/use-pizzas';
 
+const PAGE_SIZE_OPTIONS = [3, 6, 9, 12, 18];
+const SORT_BY_OPTIONS = [
+	{ value: 'createdAt', label: 'Newest' },
+	{ value: 'calories', label: 'Calories' },
+	{ value: 'price', label: 'Price' },
+	{ value: 'name', label: 'Name' },
+];
+
 const btnClasses =
 	'px-6 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg text-white font-semibold shadow transition cursor-pointer';
 
@@ -16,6 +24,13 @@ export default function HomePage() {
 		totalPages,
 		shouldShownPizzas,
 		shouldShowNoPizzas,
+		searchTerm,
+		setSearchTerm,
+		pageSize,
+		setPageSize,
+		sortBy,
+		sortDirection,
+		handleSorting,
 	} = usePizzas();
 	const navigate = useNavigate();
 
@@ -32,6 +47,46 @@ export default function HomePage() {
 					</button>
 				</nav>
 			</header>
+
+			<section className='bg-white rounded-lg shadow-md p-6 mb-6'>
+				<div>
+					<label
+						htmlFor='search'
+						className='block text-sm font-medium text-gray-700 mb-2'>
+						Search Pizzas
+					</label>
+					<input
+						id='search'
+						type='search'
+						placeholder='Search by name or description...'
+						value={searchTerm}
+						onChange={e => setSearchTerm(e.target.value)}
+						className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500'
+					/>
+				</div>
+				<div className='bg-white rounded-lg shadow-md p-4 mb-6 flex flex-wrap gap-2 items-center'>
+					<span className='text-sm font-medium text-gray-700 mr-2'>
+						Sort by:
+					</span>
+					{SORT_BY_OPTIONS.map(option => (
+						<button
+							className={`px-3 py-1 rounded-full text-sm font-medium transition cursor-pointer ${
+								sortBy === option.value
+									? 'bg-orange-600 text-white'
+									: 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+							}`}
+							key={option.value}
+							onClick={() => handleSorting(option.value)}>
+							{option.label}
+							{sortBy === option.value && (
+								<span className='ml-1'>
+									{sortDirection === 'ASC' ? '↑' : '↓'}
+								</span>
+							)}
+						</button>
+					))}
+				</div>
+			</section>
 
 			{isLoading && (
 				<div className='text-center text-lg'>Loading pizzas...</div>
@@ -63,6 +118,18 @@ export default function HomePage() {
 					onClick={() => setPage(prevPage => prevPage + 1)}>
 					Next
 				</button>
+				<div>
+					<select
+						value={pageSize}
+						onChange={e => setPageSize(parseInt(e.target.value))}
+						className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500'>
+						{PAGE_SIZE_OPTIONS.map(option => (
+							<option key={option} value={option}>
+								{option}
+							</option>
+						))}
+					</select>
+				</div>
 			</div>
 		</div>
 	);
