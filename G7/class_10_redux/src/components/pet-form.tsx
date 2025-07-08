@@ -23,6 +23,7 @@ export default function PetForm() {
 		e.preventDefault();
 		console.log(name, type);
 		dispatch(addPet({ name, type }));
+		setName('');
 	};
 
 	return (
